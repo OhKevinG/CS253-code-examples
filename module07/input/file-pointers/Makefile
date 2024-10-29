@@ -4,13 +4,16 @@ CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
 
 .PHONY: build test clean
 
-build: SimpleTest
+build: char-count csv
 
-SimpleTest: SimpleTest.o SinglyLinkedList.o Job.o
+char-count: char-count.o
+	$(CC) $(CFLAGS) $^ -o $@ 
+
+csv: csv.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
 test:
-	./SimpleTest
+	./main
 
 clean:
-	rm -f *.o *.d a.out SimpleTest
+	rm -f *.o *.d a.out main char-count csv

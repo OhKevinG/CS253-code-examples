@@ -4,13 +4,13 @@ CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
 
 .PHONY: build test clean
 
-build: SimpleTest
+build: main
 
-SimpleTest: SimpleTest.o SinglyLinkedList.o Job.o
+main: main.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
 test:
-	./SimpleTest
+	./main
 
 clean:
-	rm -f *.o *.d a.out SimpleTest
+	rm -f *.o *.d a.out main

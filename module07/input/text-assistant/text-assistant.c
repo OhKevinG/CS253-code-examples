@@ -87,13 +87,29 @@ int main(int argc, char **argv) {
     bool providedFile = false;
     char *filename;
 
+    int countOfChar = 0;
+    int countOfWords = 0;
+
 
     char *line;
     int lineSize;
     char c;
 
-    while ( (opt = getopt(argc, argv, "")) != -1 ) {
+    while ( (opt = getopt(argc, argv, "wcsf:h")) != -1 ) {
         switch (opt) {
+            case 'w':
+                countWords = true;
+                break;
+            case 'c':
+                countCharacters = true;
+                break;
+            case 's':
+                shortenSpaces = true;
+                break;
+            case 'f':
+                filename = optarg;
+                providedFile = true;        
+                break;
             case 'h':
                 printUsage(argv[0]);
                 exit(0);
@@ -132,11 +148,32 @@ int main(int argc, char **argv) {
 
         //TODO
 
+        if (countCharacters == true) {
+            countOfChar += GetNumOfNonWSCharacters(line);
+        }
+
+        if (countWords == true) {
+            countOfWords += GetNumOfWords(line);
+        }
+
+        if (shortenSpaces == true) {
+            ShortenSpace(line);
+        }
+
         // manipulate the line
         // print the line
+        printf("%s\n", line);
 
         free(line);
     }
+
+        if (countCharacters == true) {
+            printf("count of non-whitespace characters: %d\n", countOfChar);
+        }
+
+        if (countWords == true) {
+            printf("count of words: %d\n", countOfWords);
+        }
 
     fclose(f);
 }

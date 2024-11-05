@@ -16,11 +16,11 @@ typedef struct person *PersonPtr;
 int compareAgeAscending(const void *a, const void *b) {
     
     if (a == NULL && b != NULL) {
-        return -1;
+        return 1;
     }
     //anything positive - null is positive
     else if (a != NULL && b == NULL) {
-        return 1;
+        return -1;
 
     }else if (a == NULL && b == NULL) {
         return 0;
@@ -34,6 +34,19 @@ int compareAgeAscending(const void *a, const void *b) {
 
 //TODO
 int compareHeightDescending(const void *a, const void *b) {
+
+    if (a == NULL && b != NULL) {
+        return -1;
+    } else if (a != NULL && b == NULL) {
+        return 1;
+    } else if (a == NULL && b == NULL) {
+        return 0;
+    } else {
+        PersonPtr *aPerson = (PersonPtr *) a;
+        PersonPtr *bPerson = (PersonPtr *) b;
+
+        return (*bPerson)->height - (*aPerson)->height;
+    }
 
     return -1;
 }
@@ -68,7 +81,7 @@ int main(void) {
     printf("\n");
 
     //TODO: implement the descending comparator and call qsort
-
+    qsort(array, ARRAY_SIZE, sizeof(PersonPtr), compareHeightDescending);
 
     printf("Sorted descending by height array is:\n");
     for (i = 0; i < ARRAY_SIZE; i++) {

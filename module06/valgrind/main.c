@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_LEN 19 // 18 is my favorite number!
+#define MAX_LEN 18 // 18 is my favorite number!
 
 /* my clever string length calculator. I LOVE C! */
 int mystrlen(const char *s) {
-    int c = 0;
+    int c;
     while(s[++c]); // 0_o
     
     return c;
@@ -13,16 +13,15 @@ int mystrlen(const char *s) {
 
 /* Create a copy of a string and return it */
 char *makecpy(const char *s) {
-    char *cpy = (char *)malloc(sizeof(char) * MAX_LEN); // todo: this doesn't work. I'll try with malloc later
+    char *cpy = (char *) malloc(MAX_LEN); // todo: this doesn't work. I'll try with malloc later
 
-    while(*cpy++=*s++); 
-
-    int i = 0;
+    int i;
     while (i < mystrlen(s)) {
         cpy[i] = s[i];
         i++;
     }
-    cpy[i] = '\0';
+    cpy[MAX_LEN] = '\0';
+    free(cpy);
     return cpy;
 }
 
@@ -31,8 +30,6 @@ int main(void) {
     char *mycpy = makecpy(myString);
 
     printf("my copy is \"%s\"\n", mycpy);
-
-    free(mycpy);
 
     return 0;
 }

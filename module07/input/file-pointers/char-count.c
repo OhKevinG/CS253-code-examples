@@ -18,7 +18,7 @@ int main(void) {
     printf("%ld\n", nc);
 
 
-    //fclose(file);
+    fclose(file);
 
     return 0;
 }

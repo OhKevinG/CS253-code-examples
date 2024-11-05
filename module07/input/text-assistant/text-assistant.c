@@ -86,10 +86,8 @@ int main(int argc, char **argv) {
     bool shortenSpaces = false;
     bool providedFile = false;
     char *filename;
-
-    int countOfChar = 0;
-    int countOfWords = 0;
-
+    int wordCount = 0;
+    int charCount = 0;
 
     char *line;
     int lineSize;
@@ -108,7 +106,7 @@ int main(int argc, char **argv) {
                 break;
             case 'f':
                 filename = optarg;
-                providedFile = true;        
+                providedFile = true;
                 break;
             case 'h':
                 printUsage(argv[0]);
@@ -120,6 +118,7 @@ int main(int argc, char **argv) {
     }
 
     if (providedFile == false) {
+        fprintf(stderr, "Filename is required\n");
         printUsage(argv[0]);
         exit(-1);
     }
@@ -146,34 +145,30 @@ int main(int argc, char **argv) {
         //ensure that the line string is null terminated
         line[lineSize] = '\0';
 
-        //TODO
-
-        if (countCharacters == true) {
-            countOfChar += GetNumOfNonWSCharacters(line);
+        if (countWords == true) {
+            wordCount += GetNumOfWords(line);
         }
 
-        if (countWords == true) {
-            countOfWords += GetNumOfWords(line);
+        if (countCharacters == true) {
+            charCount += GetNumOfNonWSCharacters(line);
         }
 
         if (shortenSpaces == true) {
             ShortenSpace(line);
         }
 
-        // manipulate the line
-        // print the line
         printf("%s\n", line);
 
         free(line);
     }
 
-        if (countCharacters == true) {
-            printf("count of non-whitespace characters: %d\n", countOfChar);
-        }
+    if (countWords == true) {
+        printf("Non WS Word Count: %d\n", wordCount);
+    }
 
-        if (countWords == true) {
-            printf("count of words: %d\n", countOfWords);
-        }
+    if (countCharacters == true) {
+        printf("Non Character Count: %d\n", charCount);
+    }
 
     fclose(f);
 }
